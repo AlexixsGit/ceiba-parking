@@ -132,4 +132,7 @@ public class ParkingController {
 		}
 	}
 
+	// TODO: Crear metodo para validar que la placa no este estacionada en el
+	// momento
+
 }
