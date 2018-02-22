@@ -2,7 +2,11 @@ package com.ceiba.parking.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "admin")
@@ -13,11 +17,13 @@ public class Admin extends ParentEntity {
 	@Column(name = "hours_for_a_day")
 	private Integer hoursForADay;
 
-	@Column(name = "cars_capacity")
-	private Integer carsCapacity;
+	@Column(name = "capacity")
+	private Integer capacity;
 
-	@Column(name = "moto_capacity")
-	private Integer motoCapacity;
+	@NotNull
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "vehicle_type")
+	private VehicleType vehicleType;
 
 	@Column(name = "engine_capacity")
 	private Integer engineCapacity;
@@ -31,22 +37,6 @@ public class Admin extends ParentEntity {
 
 	public void setHoursForADay(Integer hoursForADay) {
 		this.hoursForADay = hoursForADay;
-	}
-
-	public Integer getCarsCapacity() {
-		return carsCapacity;
-	}
-
-	public void setCarsCapacity(Integer carsCapacity) {
-		this.carsCapacity = carsCapacity;
-	}
-
-	public Integer getMotoCapacity() {
-		return motoCapacity;
-	}
-
-	public void setMotoCapacity(Integer motoCapacity) {
-		this.motoCapacity = motoCapacity;
 	}
 
 	public Integer getEngineCapacity() {
@@ -63,6 +53,22 @@ public class Admin extends ParentEntity {
 
 	public void setRestrictPlaqueLetter(String restrictPlaqueLetter) {
 		this.restrictPlaqueLetter = restrictPlaqueLetter;
+	}
+
+	public Integer getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(Integer capacity) {
+		this.capacity = capacity;
+	}
+
+	public VehicleType getVehicleType() {
+		return vehicleType;
+	}
+
+	public void setVehicleType(VehicleType vehicleType) {
+		this.vehicleType = vehicleType;
 	}
 
 }

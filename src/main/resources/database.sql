@@ -55,17 +55,17 @@ create table admin
 (
 	id bigint(20) primary key auto_increment comment 'Id auto incrementable',
     hours_for_a_day int comment 'Cuantas horas es un dia',
-    cars_capacity int comment 'Capacidad de parqueaderos de vehiculos',
-    moto_capacity int comment 'Capacidad de parqueaderos de motos',
+    capacity int comment 'Capacidad de parqueaderos de vehiculos',
+    vehicle_type bigint(20) not null comment 'Tipo de vehiculo',
     engine_capacity int comment 'cilindraje',
     restrict_plaque_letter varchar(1) comment 'Letra de la placa restringida'
 );
 
 
-
 alter table price ADD CONSTRAINT fk_price_vehicle_type FOREIGN KEY (vehicle_type) references vehicle_type(id);
 alter table parking ADD CONSTRAINT fk_parking_vehicle_type FOREIGN KEY (vehicle_type) references vehicle_type(id);
 alter table sale ADD CONSTRAINT fk_sale_invoice FOREIGN KEY (invoice) references invoice(id);
+alter table admin ADD CONSTRAINT fk_admin_vehicle_type FOREIGN KEY (vehicle_type) references vehicle_type(id);
 
 insert into vehicle_type(description) values('Moto');
 insert into vehicle_type(description) values('Carro');
@@ -73,5 +73,20 @@ insert into vehicle_type(description) values('Carro');
 insert into price(vehicle_type,hour_price,day_price,high_engine_price) values(1,500,4000,2000);
 insert into price(vehicle_type,hour_price,day_price,high_engine_price) values(2,1000,8000,0);
 
-insert into admin(hours_for_a_day,cars_capacity,moto_capacity,engine_capacity,restrict_plaque_letter) values(9,20,10,500,'A');
+insert into admin(hours_for_a_day,capacity,vehicle_type,engine_capacity,restrict_plaque_letter) values(9,20,1,500,'A');
+insert into admin(hours_for_a_day,capacity,vehicle_type,engine_capacity,restrict_plaque_letter) values(9,20,2,0,'A');
+
+
+select * from parking;
+select * from admin;
+delete from admin where id  = 3;
+
+select count(*) from parking;
+
+delete from parking where id>0;
+
+update admin set capacity = 10 where id = 1;
+update admin set capacity = 20 where id = 2;
+
+commit;
 

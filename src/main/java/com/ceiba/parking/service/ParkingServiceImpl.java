@@ -1,5 +1,7 @@
 package com.ceiba.parking.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +17,10 @@ public class ParkingServiceImpl implements ParkingService {
 	@Override
 	public void save(Parking parking) {
 		this.parkingRepository.save(parking);
+	}
+
+	@Override
+	public List<Parking> findAllByType(Long vehicleTypeId) {
+		return this.parkingRepository.findAllByType(vehicleTypeId);
 	}
 }
