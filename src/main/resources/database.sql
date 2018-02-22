@@ -58,5 +58,20 @@ create table admin
     cars_capacity int comment 'Capacidad de parqueaderos de vehiculos',
     moto_capacity int comment 'Capacidad de parqueaderos de motos',
     engine_capacity int comment 'cilindraje',
-    restrict_plaque_letter char comment 'Letra de la placa restringida'
+    restrict_plaque_letter varchar(1) comment 'Letra de la placa restringida'
 );
+
+
+
+alter table price ADD CONSTRAINT fk_price_vehicle_type FOREIGN KEY (vehicle_type) references vehicle_type(id);
+alter table parking ADD CONSTRAINT fk_parking_vehicle_type FOREIGN KEY (vehicle_type) references vehicle_type(id);
+alter table sale ADD CONSTRAINT fk_sale_invoice FOREIGN KEY (invoice) references invoice(id);
+
+insert into vehicle_type(description) values('Moto');
+insert into vehicle_type(description) values('Carro');
+
+insert into price(vehicle_type,hour_price,day_price,high_engine_price) values(1,500,4000,2000);
+insert into price(vehicle_type,hour_price,day_price,high_engine_price) values(2,1000,8000,0);
+
+insert into admin(hours_for_a_day,cars_capacity,moto_capacity,engine_capacity,restrict_plaque_letter) values(9,20,10,500,'A');
+
