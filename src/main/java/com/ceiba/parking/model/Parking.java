@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -45,6 +46,9 @@ public class Parking extends ParentEntity {
 
 	@Column(name = "engine_capacity")
 	private Integer engineCapacity;
+
+	@Transient
+	private boolean isNew;
 
 	public VehicleType getVehicleType() {
 		return vehicleType;
@@ -100,5 +104,9 @@ public class Parking extends ParentEntity {
 
 	public void setEngineCapacity(Integer engineCapacity) {
 		this.engineCapacity = engineCapacity;
+	}
+
+	public boolean isNew() {
+		return this.getId() == null;
 	}
 }

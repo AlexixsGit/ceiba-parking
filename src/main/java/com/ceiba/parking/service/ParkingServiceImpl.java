@@ -1,10 +1,15 @@
 package com.ceiba.parking.service;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ceiba.parking.model.Admin;
 import com.ceiba.parking.model.Parking;
 import com.ceiba.parking.repository.ParkingRepository;
 
@@ -14,13 +19,88 @@ public class ParkingServiceImpl implements ParkingService {
 	@Autowired
 	protected ParkingRepository parkingRepository;
 
+	@Autowired
+	protected AdminService adminService;
+
 	@Override
-	public void save(Parking parking) {
-		this.parkingRepository.save(parking);
+	public Parking save(Parking parking) {
+		return this.parkingRepository.save(parking);
 	}
 
 	@Override
 	public List<Parking> findAllByType(Long vehicleTypeId) {
 		return this.parkingRepository.findAllByType(vehicleTypeId);
 	}
+
+	@Override
+	public boolean validateCapacity(Parking parking) {
+
+		if (parking.isNew()) {
+			Admin admin = this.adminService.findByVehicleType(parking.getVehicleType().getId());
+			List<Parking> parkingList = this.findAllByType(parking.getVehicleType().getId());
+			return parkingList.size() < admin.getCapacity();
+		}
+		return true;
+	}
+
+	@Override
+	public boolean validateIfPlaqueIsRestricted(Parking parking) {
+
+		if (parking.isNew()) {
+			Admin admin = this.adminService.findByVehicleType(parking.getVehicleType().getId());
+
+			Calendar calendar = GregorianCalendar.getInstance();
+			calendar.setTime(new Date());
+			int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+			return parking.getPlaque().substring(0, 1).toUpperCase()
+					.contains(admin.getRestrictPlaqueLetter().toUpperCase())
+					&& (day == Calendar.SUNDAY || day == Calendar.MONDAY);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean validate(Parking parking) {
+		boolean isValid = true;
+
+		if (parking.getVehicleType() == null || parking.getVehicleType().getId() == null) {
+			isValid = false;
+		}
+
+		if (StringUtils.trimToNull(parking.getPlaque()) == null) {
+			isValid = false;
+		}
+
+		return isValid;
+	}
+
+	@Override
+	public Parking complete(Parking parking) {
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.setTime(new Date());
+		int hours = calendar.get(Calendar.HOUR);
+		int minutes = calendar.get(Calendar.MINUTE);
+
+		if (parking.isNew()) {
+			parking.setEntryDate(new Date());
+			parking.setEntryHour(hours + ":" + minutes);
+		} else {
+			parking = this.parkingRepository.findOne(parking.getId());
+			parking.setDepartureDate(new Date());
+			parking.setDepartureHour(hours + ":" + minutes);
+		}
+		return parking;
+	}
+
+	@Override
+	public boolean validateIfPlaqueExist(Parking parking) {
+
+		if (parking.isNew()) {
+			int size = this.parkingRepository.findByPlaque(parking.getPlaque()).size();
+			return size > 0;
+		}
+		return false;
+	}
+
 }

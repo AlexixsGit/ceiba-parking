@@ -10,6 +10,9 @@ import com.ceiba.parking.model.Parking;
 
 public interface ParkingRepository extends JpaRepository<Parking, Long> {
 
-	@Query("select p from Parking p where p.vehicleType.id = :vehicleTypeId")
+	@Query("select p from Parking p where p.vehicleType.id = :vehicleTypeId and departureDate is null")
 	List<Parking> findAllByType(@Param("vehicleTypeId") Long vehicleTypeId);
+
+	@Query("select p from Parking p where p.plaque = :plaque and departureDate is null")
+	List<Parking> findByPlaque(@Param("plaque") String plaque);
 }
