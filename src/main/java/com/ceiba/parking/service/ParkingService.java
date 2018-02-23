@@ -1,7 +1,5 @@
 package com.ceiba.parking.service;
 
-import java.util.List;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ceiba.parking.model.Parking;
@@ -15,15 +13,6 @@ public interface ParkingService {
 	 * @param parking
 	 */
 	Parking save(Parking parking);
-
-	/**
-	 * 
-	 * Devuelve los registros que esten en el parqueadero
-	 * 
-	 * @param vehicleTypeId
-	 * @return
-	 */
-	List<Parking> findAllByType(Long vehicleTypeId);
 
 	/**
 	 * Valida el cupo

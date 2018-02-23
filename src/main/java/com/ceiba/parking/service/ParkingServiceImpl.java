@@ -22,14 +22,13 @@ public class ParkingServiceImpl implements ParkingService {
 	@Autowired
 	protected AdminService adminService;
 
-	@Override
-	public Parking save(Parking parking) {
-		return this.parkingRepository.save(parking);
+	public ParkingServiceImpl(AdminService adminService) {
+		this.adminService = adminService;
 	}
 
 	@Override
-	public List<Parking> findAllByType(Long vehicleTypeId) {
-		return this.parkingRepository.findAllByType(vehicleTypeId);
+	public Parking save(Parking parking) {
+		return this.parkingRepository.save(parking);
 	}
 
 	@Override
@@ -37,7 +36,7 @@ public class ParkingServiceImpl implements ParkingService {
 
 		if (parking.isNew()) {
 			Admin admin = this.adminService.findByVehicleType(parking.getVehicleType().getId());
-			List<Parking> parkingList = this.findAllByType(parking.getVehicleType().getId());
+			List<Parking> parkingList = this.parkingRepository.findAllByType(parking.getVehicleType().getId());
 			return parkingList.size() < admin.getCapacity();
 		}
 		return true;

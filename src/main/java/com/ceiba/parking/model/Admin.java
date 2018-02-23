@@ -31,6 +31,19 @@ public class Admin extends ParentEntity {
 	@Column(name = "restrict_plaque_letter", length = 1)
 	private String restrictPlaqueLetter;
 
+	public Admin() {
+
+	}
+
+	public Admin(Integer hoursForADay, Integer capacity, VehicleType vehicleType, Integer engineCapacity,
+			String restrictPlaqueLetter) {
+		this.hoursForADay = hoursForADay;
+		this.capacity = capacity;
+		this.vehicleType = vehicleType;
+		this.engineCapacity = engineCapacity;
+		this.restrictPlaqueLetter = restrictPlaqueLetter;
+	}
+
 	public Integer getHoursForADay() {
 		return hoursForADay;
 	}

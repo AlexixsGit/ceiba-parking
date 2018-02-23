@@ -52,8 +52,4 @@ public class ParkingController {
 
 		return new RestResponse(HttpStatus.OK.value(), "Operacion exitosa");
 	}
-
-	// TODO: Crear metodo para validar que la placa no este estacionada en el
-	// momento
-
 }

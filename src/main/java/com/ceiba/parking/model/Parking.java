@@ -50,6 +50,20 @@ public class Parking extends ParentEntity {
 	@Transient
 	private boolean isNew;
 
+	public Parking() {
+	}
+
+	public Parking(VehicleType vehicleType, String plaque, Date entryDate, String entryHour, Date departureDate,
+			String departureHour, Integer engineCapacity) {
+		this.vehicleType = vehicleType;
+		this.plaque = plaque;
+		this.entryDate = entryDate;
+		this.entryHour = entryHour;
+		this.departureDate = departureDate;
+		this.departureHour = departureHour;
+		this.engineCapacity = engineCapacity;
+	}
+
 	public VehicleType getVehicleType() {
 		return vehicleType;
 	}
