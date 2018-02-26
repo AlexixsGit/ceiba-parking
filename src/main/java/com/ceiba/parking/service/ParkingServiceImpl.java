@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.ceiba.parking.model.Admin;
 import com.ceiba.parking.model.Parking;
+import com.ceiba.parking.repository.AdminRepository;
 import com.ceiba.parking.repository.ParkingRepository;
 
 @Service
@@ -20,11 +21,7 @@ public class ParkingServiceImpl implements ParkingService {
 	protected ParkingRepository parkingRepository;
 
 	@Autowired
-	protected AdminService adminService;
-
-	public ParkingServiceImpl(AdminService adminService) {
-		this.adminService = adminService;
-	}
+	protected AdminRepository adminRepository;
 
 	@Override
 	public Parking save(Parking parking) {
@@ -35,7 +32,7 @@ public class ParkingServiceImpl implements ParkingService {
 	public boolean validateCapacity(Parking parking) {
 
 		if (parking.isNew()) {
-			Admin admin = this.adminService.findByVehicleType(parking.getVehicleType().getId());
+			Admin admin = this.adminRepository.findByVehicleType(parking.getVehicleType().getId());
 			List<Parking> parkingList = this.parkingRepository.findAllByType(parking.getVehicleType().getId());
 			return parkingList.size() < admin.getCapacity();
 		}
@@ -46,10 +43,10 @@ public class ParkingServiceImpl implements ParkingService {
 	public boolean validateIfPlaqueIsRestricted(Parking parking) {
 
 		if (parking.isNew()) {
-			Admin admin = this.adminService.findByVehicleType(parking.getVehicleType().getId());
+			Admin admin = this.adminRepository.findByVehicleType(parking.getVehicleType().getId());
 
 			Calendar calendar = GregorianCalendar.getInstance();
-			calendar.setTime(new Date());
+			calendar.setTime(parking.getEntryDate());
 			int day = calendar.get(Calendar.DAY_OF_WEEK);
 
 			return parking.getPlaque().substring(0, 1).toUpperCase()

@@ -39,17 +39,19 @@ public class ParkingController {
 		if (!this.parkingService.validateCapacity(parking)) {
 			return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), "No hay cupos disponibles");
 		}
+
+		parking = this.parkingService.complete(parking);
+
 		if (this.parkingService.validateIfPlaqueIsRestricted(parking)) {
 			return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(),
 					"La placa " + parking.getPlaque() + " no puede ingresar");
 		}
-		parking = this.parkingService.complete(parking);
 		try {
-			this.parkingService.save(parking);
+			parking = this.parkingService.save(parking);
 		} catch (Exception e) {
 			return new RestResponse(HttpStatus.CONFLICT.value(), "Error interno del sistema");
 		}
 
-		return new RestResponse(HttpStatus.OK.value(), "Operacion exitosa");
+		return new RestResponse(parking, HttpStatus.OK.value(), "Operacion exitosa");
 	}
 }
