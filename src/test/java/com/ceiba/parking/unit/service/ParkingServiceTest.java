@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,6 +47,14 @@ public class ParkingServiceTest {
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
+	}
+
+	@After
+	public void finish() {
+		this.adminRepository = null;
+		this.parkingRepository = null;
+		this.vehicleTypeRepository = null;
+		this.parkingService = null;
 	}
 
 	@Test

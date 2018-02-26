@@ -1,0 +1,1 @@
+delete from parking where id >0;

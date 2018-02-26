@@ -1,6 +1,6 @@
 package com.ceiba.parking.util;
 
-public class RestResponse {
+public class RestResponse{
 
 	private Object entity;
 	private Integer responseCode;

@@ -13,8 +13,11 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "parking")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Parking extends ParentEntity {
 
 	private static final long serialVersionUID = 3894661849543696045L;

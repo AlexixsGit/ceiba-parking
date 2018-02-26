@@ -1,20 +1,18 @@
+
 use ceibaparking;
 
-create table price
+drop table if exists admin;
+create table admin
 (
 	id bigint(20) primary key auto_increment comment 'Id auto incrementable',
-    vehicle_type bigint(20) not null comment 'tipo de vehiculo',
-    hour_price double not null comment 'precio hora',
-    day_price double not null comment 'precio del dia',
-    high_engine_price double default 0.00 comment 'precio moto alto cilindraje'
+    hours_for_a_day int comment 'Cuantas horas es un dia',
+    capacity int comment 'Capacidad de parqueaderos de vehiculos',
+    vehicle_type bigint(20) not null comment 'Tipo de vehiculo',
+    engine_capacity int comment 'cilindraje',
+    restrict_plaque_letter varchar(1) comment 'Letra de la placa restringida'
 );
 
-create table vehicle_type
-(
-	id bigint(20) primary key auto_increment comment 'Id auto incrementable',
-    description varchar(50) not null comment 'descripcion del vehiculo(moto,carro)'
-);
-
+drop table if exists parking;
 create table parking
 (
 	id bigint(20) primary key auto_increment comment 'Id auto incrementable',
@@ -27,6 +25,24 @@ create table parking
     engine_capacity int comment 'cilindraje'
 );
 
+drop table if exists price;
+create table price
+(
+	id bigint(20) primary key auto_increment comment 'Id auto incrementable',
+    vehicle_type bigint(20) not null comment 'tipo de vehiculo',
+    hour_price double not null comment 'precio hora',
+    day_price double not null comment 'precio del dia',
+    high_engine_price double default 0.00 comment 'precio moto alto cilindraje'
+);
+
+drop table if exists vehicle_type;
+create table vehicle_type
+(
+	id bigint(20) primary key auto_increment comment 'Id auto incrementable',
+    description varchar(50) not null comment 'descripcion del vehiculo(moto,carro)'
+);
+
+drop table if exists sale;
 create table sale
 (
 	id bigint(20) primary key auto_increment comment 'Id auto incrementable',
@@ -36,6 +52,7 @@ create table sale
     invoice bigint(20) not null comment 'Factura de venta'
 );
 
+drop table if exists invoice;
 create table invoice
 (
 	id bigint(20) primary key auto_increment comment 'Id auto incrementable',
@@ -49,21 +66,12 @@ create table invoice
     total double not null comment 'Valor total de la factura'
 );
 
-create table admin
-(
-	id bigint(20) primary key auto_increment comment 'Id auto incrementable',
-    hours_for_a_day int comment 'Cuantas horas es un dia',
-    capacity int comment 'Capacidad de parqueaderos de vehiculos',
-    vehicle_type bigint(20) not null comment 'Tipo de vehiculo',
-    engine_capacity int comment 'cilindraje',
-    restrict_plaque_letter varchar(1) comment 'Letra de la placa restringida'
-);
 
 
-alter table price ADD CONSTRAINT fk_price_vehicle_type FOREIGN KEY (vehicle_type) references vehicle_type(id);
-alter table parking ADD CONSTRAINT fk_parking_vehicle_type FOREIGN KEY (vehicle_type) references vehicle_type(id);
-alter table sale ADD CONSTRAINT fk_sale_invoice FOREIGN KEY (invoice) references invoice(id);
-alter table admin ADD CONSTRAINT fk_admin_vehicle_type FOREIGN KEY (vehicle_type) references vehicle_type(id);
+
+
+
+
 
 
 
