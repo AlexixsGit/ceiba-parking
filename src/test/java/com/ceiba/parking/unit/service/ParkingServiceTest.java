@@ -1,5 +1,6 @@
 package com.ceiba.parking.unit.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
@@ -19,8 +20,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ceiba.parking.model.Admin;
 import com.ceiba.parking.model.Parking;
+import com.ceiba.parking.model.VehicleType;
 import com.ceiba.parking.repository.AdminRepository;
 import com.ceiba.parking.repository.ParkingRepository;
+import com.ceiba.parking.repository.VehicleTypeRepository;
 import com.ceiba.parking.service.ParkingServiceImpl;
 import com.ceiba.parking.testdatabuilder.AdminTestDataBuilder;
 import com.ceiba.parking.testdatabuilder.ParkingTestDataBuilder;
@@ -36,6 +39,9 @@ public class ParkingServiceTest {
 
 	@Mock
 	private ParkingRepository parkingRepository;
+
+	@Mock
+	private VehicleTypeRepository vehicleTypeRepository;
 
 	@Before
 	public void setup() {
@@ -205,6 +211,93 @@ public class ParkingServiceTest {
 
 		// Assert
 		assertFalse(isRestricted);
+	}
+
+	@Test
+	public void validateWithoutVehicle() {
+		// Arrange
+		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
+		parkingTestDataBuilder.withVehicleType(null);
+
+		Parking parking = parkingTestDataBuilder.build();
+		// Act
+		boolean isValid = this.parkingService.validate(parking);
+
+		// Assert
+		assertFalse(isValid);
+	}
+
+	@Test
+	public void validateWithoutPlaque() {
+		// Arrange
+		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
+		parkingTestDataBuilder.withPlaque("");
+
+		Parking parking = parkingTestDataBuilder.build();
+		// Act
+		boolean isValid = this.parkingService.validate(parking);
+
+		// Assert
+		assertFalse(isValid);
+	}
+
+	@Test
+	public void validateWithAllData() {
+		// Arrange
+		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
+
+		Parking parking = parkingTestDataBuilder.build();
+		// Act
+		boolean isValid = this.parkingService.validate(parking);
+
+		// Assert
+		assertTrue(isValid);
+	}
+
+	@Test
+	public void vehicleTypeNotExists() {
+		// Arrange
+		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
+		parkingTestDataBuilder.withVehicleType(new VehicleType(10l, "Camion"));
+
+		Parking parking = parkingTestDataBuilder.build();
+		when(this.vehicleTypeRepository.findOne(parking.getVehicleType().getId())).thenReturn(null);
+		// Act
+		boolean vehicleTypeExists = this.parkingService.validateVehicleType(parking.getVehicleType());
+
+		// Assert
+		assertFalse(vehicleTypeExists);
+	}
+
+	@Test
+	public void vehicleTypeExists() {
+		// Arrange
+		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
+
+		VehicleType VehicleType = new VehicleType(1l, "Moto");
+
+		Parking parking = parkingTestDataBuilder.build();
+		when(this.vehicleTypeRepository.findOne(parking.getVehicleType().getId())).thenReturn(VehicleType);
+		// Act
+		boolean vehicleTypeExists = this.parkingService.validateVehicleType(parking.getVehicleType());
+
+		// Assert
+		assertTrue(vehicleTypeExists);
+	}
+
+	@Test
+	public void completeInfo() {
+
+		// Arrange
+		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
+
+		Parking parking = parkingTestDataBuilder.build();
+
+		// Act
+		Parking newParking = this.parkingService.complete(parking);
+
+		// Assert
+		assertEquals(parking, newParking);
 	}
 
 }

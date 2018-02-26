@@ -3,6 +3,7 @@ package com.ceiba.parking.service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ceiba.parking.model.Parking;
+import com.ceiba.parking.model.VehicleType;
 
 @Transactional
 public interface ParkingService {
@@ -52,5 +53,13 @@ public interface ParkingService {
 	 * @return
 	 */
 	boolean validateIfPlaqueExist(Parking parking);
+
+	/**
+	 * Valida que el tipo de vehiculo exista
+	 * 
+	 * @param vehicleType
+	 * @return true si el vehiculo existe
+	 */
+	boolean validateVehicleType(VehicleType vehicleType);
 
 }

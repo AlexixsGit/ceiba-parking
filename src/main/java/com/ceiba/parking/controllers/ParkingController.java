@@ -32,6 +32,9 @@ public class ParkingController {
 			return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(),
 					"Los campos obligatorios no estan diligenciados");
 		}
+		if (!this.parkingService.validateVehicleType(parking.getVehicleType())) {
+			return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), "El tipo de vehiculo no existe");
+		}
 		if (this.parkingService.validateIfPlaqueExist(parking)) {
 			return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(),
 					"La placa " + parking.getPlaque() + " ya se encuentra registrada");

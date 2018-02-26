@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.ceiba.parking.model.Admin;
 import com.ceiba.parking.model.Parking;
+import com.ceiba.parking.model.VehicleType;
 import com.ceiba.parking.repository.AdminRepository;
 import com.ceiba.parking.repository.ParkingRepository;
+import com.ceiba.parking.repository.VehicleTypeRepository;
 
 @Service
 public class ParkingServiceImpl implements ParkingService {
@@ -22,6 +24,9 @@ public class ParkingServiceImpl implements ParkingService {
 
 	@Autowired
 	protected AdminRepository adminRepository;
+
+	@Autowired
+	protected VehicleTypeRepository vehicleTypeRepository;
 
 	@Override
 	public Parking save(Parking parking) {
@@ -95,6 +100,15 @@ public class ParkingServiceImpl implements ParkingService {
 		if (parking.isNew()) {
 			int size = this.parkingRepository.findByPlaque(parking.getPlaque()).size();
 			return size > 0;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean validateVehicleType(VehicleType vehicleType) {
+
+		if (vehicleType != null) {
+			return this.vehicleTypeRepository.findOne(vehicleType.getId()) != null;
 		}
 		return false;
 	}
