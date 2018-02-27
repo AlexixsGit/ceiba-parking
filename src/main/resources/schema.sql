@@ -42,15 +42,9 @@ create table vehicle_type
     description varchar(50) not null comment 'descripcion del vehiculo(moto,carro)'
 );
 
+
 drop table if exists sale;
-create table sale
-(
-	id bigint(20) primary key auto_increment comment 'Id auto incrementable',
-    entry_date datetime not null comment 'Fecha de entrada',
-    departure_date datetime not null comment 'Fecha de salida',
-    total_time varchar(10) not null comment 'Tiempo total de parqueo',
-    invoice bigint(20) not null comment 'Factura de venta'
-);
+
 
 drop table if exists invoice;
 create table invoice
@@ -64,7 +58,10 @@ create table invoice
     additional_cost double comment 'Costo adicional',
     subtotal double not null comment 'Subtotal',
     total double not null comment 'Valor total de la factura',
-    creation_date datetime not null comment 'Fecha de facturacion'
+    creation_date datetime not null comment 'Fecha de facturacion',
+    entry_date datetime not null comment 'Fecha de entrada',
+    departure_date datetime not null comment 'Fecha de salida',
+    total_time bigint null comment 'Tiempo total de parqueo'
 );
 
 

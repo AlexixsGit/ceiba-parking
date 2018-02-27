@@ -49,12 +49,26 @@ public class Invoice extends ParentEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 
+	@NotNull
+	@Column(name = "entry_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date entryDate;
+
+	@NotNull
+	@Column(name = "departure_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date departureDate;
+
+	@Column(name = "total_time", length = 10)
+	private Long totalTime;
+
 	public Invoice() {
 
 	}
 
 	public Invoice(String plaque, String descVehicleType, Integer engineCapacity, String employee, Double iva,
-			Double additionalCost, Double subtotal, Double total, Date creationDate) {
+			Double additionalCost, Double subtotal, Double total, Date creationDate, Date entryDate, Date departureDate,
+			Long totalTime) {
 		this.plaque = plaque;
 		this.descVehicleType = descVehicleType;
 		this.engineCapacity = engineCapacity;
@@ -64,6 +78,9 @@ public class Invoice extends ParentEntity {
 		this.subtotal = subtotal;
 		this.total = total;
 		this.creationDate = creationDate;
+		this.entryDate = entryDate;
+		this.departureDate = departureDate;
+		this.totalTime = totalTime;
 	}
 
 	public String getPlaque() {
@@ -136,6 +153,30 @@ public class Invoice extends ParentEntity {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public Date getEntryDate() {
+		return entryDate;
+	}
+
+	public void setEntryDate(Date entryDate) {
+		this.entryDate = entryDate;
+	}
+
+	public Date getDepartureDate() {
+		return departureDate;
+	}
+
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
+	}
+
+	public Long getTotalTime() {
+		return totalTime;
+	}
+
+	public void setTotalTime(Long totalTime) {
+		this.totalTime = totalTime;
 	}
 
 }

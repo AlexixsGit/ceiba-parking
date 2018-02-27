@@ -16,6 +16,9 @@ public class InvoiceTestDataBuilder {
 	private Double subtotal;
 	private Double total;
 	private Date creationDate;
+	private Date entryDate;
+	private Date departureDate;
+	private Long totalTime;
 
 	public InvoiceTestDataBuilder() {
 		this.plaque = "CIH123";
@@ -27,6 +30,9 @@ public class InvoiceTestDataBuilder {
 		this.subtotal = 500d;
 		this.total = 500d;
 		this.creationDate = new Date();
+		this.entryDate = new Date();
+		this.departureDate = new Date();
+		this.totalTime = 2l;
 	}
 
 	public InvoiceTestDataBuilder withPlaque(String plaque) {
@@ -74,8 +80,24 @@ public class InvoiceTestDataBuilder {
 		return this;
 	}
 
+	public InvoiceTestDataBuilder withEntryDate(Date entryDate) {
+		this.entryDate = entryDate;
+		return this;
+	}
+
+	public InvoiceTestDataBuilder withDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
+		return this;
+	}
+
+	public InvoiceTestDataBuilder withTotalTime(Long totalTime) {
+		this.totalTime = totalTime;
+		return this;
+	}
+
 	public Invoice build() {
 		return new Invoice(this.plaque, this.descVehicleType, this.engineCapacity, this.employee, this.iva,
-				this.additionalCost, this.subtotal, this.total, this.creationDate);
+				this.additionalCost, this.subtotal, this.total, this.creationDate, this.entryDate, this.departureDate,
+				this.totalTime);
 	}
 }

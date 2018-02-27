@@ -66,6 +66,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 		newInvoice.setDescVehicleType(
 				this.vehicleTypeRepository.findOne(parking.getVehicleType().getId()).getDescription());
 		newInvoice.setEmployee(Constants.EMPLOYEE);
+		newInvoice.setEntryDate(parking.getEntryDate());
+		newInvoice.setDepartureDate(parking.getDepartureDate());
 
 		Double additionalCost = this.calculateAdditionalCost(parking);
 		newInvoice.setAdditionalCost(additionalCost);
