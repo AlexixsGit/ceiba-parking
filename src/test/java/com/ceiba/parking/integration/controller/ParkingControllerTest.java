@@ -74,7 +74,7 @@ public class ParkingControllerTest {
 	@Test
 	@Sql({ "/delete-parking.sql", "/multiple-parking-inserts.sql" })
 	public void verifyDepartureVehicleSuccessfulTest() throws Exception {
-		this.parking.setId(1l);
+		this.parking.setId(this.parkingRepository.findAll().get(0).getId());
 
 		String json = this.mapper.writeValueAsString(this.parking);
 
