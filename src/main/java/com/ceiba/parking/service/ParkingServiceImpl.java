@@ -115,4 +115,14 @@ public class ParkingServiceImpl implements ParkingService {
 		return false;
 	}
 
+	@Override
+	public List<Parking> findAll() {
+		return this.parkingRepository.findAll();
+	}
+
+	@Override
+	public List<Parking> findByPlaque(String plaque) {
+		return this.parkingRepository.findByPlaque(plaque);
+	}
+
 }

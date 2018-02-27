@@ -9,11 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ceiba.parking.model.Parking;
 import com.ceiba.parking.service.ParkingService;
 import com.ceiba.parking.util.ApplicationMessages;
+import com.ceiba.parking.util.QueryResult;
 import com.ceiba.parking.util.RestResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -55,5 +57,15 @@ public class ParkingController {
 		}
 
 		return new RestResponse(parking, HttpStatus.OK.value(), ApplicationMessages.SUCCESS_OPERATION);
+	}
+
+	@RequestMapping(value = "/parking/getParkingList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public QueryResult<Parking> getParkingList() {
+		return new QueryResult<>(this.parkingService.findAll());
+	}
+
+	@RequestMapping(value = "/parking/getParkingListByPlaque", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public QueryResult<Parking> getParkingListByPlaque(@RequestParam("plaque") String plaque) {
+		return new QueryResult<>(this.parkingService.findAll());
 	}
 }

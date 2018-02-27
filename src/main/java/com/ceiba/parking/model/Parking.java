@@ -24,7 +24,7 @@ public class Parking extends ParentEntity {
 	private static final long serialVersionUID = 3894661849543696045L;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "vehicle_type")
 	private VehicleType vehicleType;
 

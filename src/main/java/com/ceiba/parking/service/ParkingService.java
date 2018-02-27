@@ -1,5 +1,7 @@
 package com.ceiba.parking.service;
 
+import java.util.List;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ceiba.parking.model.Parking;
@@ -61,5 +63,20 @@ public interface ParkingService {
 	 * @return true si el vehiculo existe
 	 */
 	boolean validateVehicleType(VehicleType vehicleType);
+
+	/**
+	 * Obtiene todos los registros del parqueadero
+	 * 
+	 * @return
+	 */
+	List<Parking> findAll();
+
+	/**
+	 * Obtiene todos los registros por placa
+	 * 
+	 * @param plaque
+	 * @return
+	 */
+	List<Parking> findByPlaque(String plaque);
 
 }
