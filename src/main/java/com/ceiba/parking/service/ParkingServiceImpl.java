@@ -84,8 +84,10 @@ public class ParkingServiceImpl implements ParkingService {
 		int minutes = calendar.get(Calendar.MINUTE);
 
 		if (parking.isNew()) {
-			parking.setEntryDate(new Date());
-			parking.setEntryHour(hours + ":" + minutes);
+			if (parking.getEntryDate() == null) {
+				parking.setEntryDate(new Date());
+				parking.setEntryHour(hours + ":" + minutes);
+			}
 		} else {
 			parking = this.parkingRepository.findOne(parking.getId());
 			parking.setDepartureDate(new Date());

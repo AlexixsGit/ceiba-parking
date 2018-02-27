@@ -15,4 +15,7 @@ public interface ParkingRepository extends JpaRepository<Parking, Long> {
 
 	@Query("select p from Parking p where p.plaque = :plaque and departureDate is null")
 	List<Parking> findByPlaque(@Param("plaque") String plaque);
+
+	@Query("select p from Parking p where p.plaque = :plaque and departureDate is not null")
+	List<Parking> findByPlaqueWithDepartureDate(@Param("plaque") String plaque);
 }

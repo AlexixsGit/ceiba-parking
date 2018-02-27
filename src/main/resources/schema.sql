@@ -63,7 +63,8 @@ create table invoice
     iva double null comment 'Iva',
     additional_cost double comment 'Costo adicional',
     subtotal double not null comment 'Subtotal',
-    total double not null comment 'Valor total de la factura'
+    total double not null comment 'Valor total de la factura',
+    creation_date datetime not null comment 'Fecha de facturacion'
 );
 
 

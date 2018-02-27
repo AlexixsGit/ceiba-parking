@@ -13,6 +13,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -34,6 +35,7 @@ public class Parking extends ParentEntity {
 	@NotNull
 	@Column(name = "entry_date")
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date entryDate;
 
 	@NotNull
@@ -42,6 +44,7 @@ public class Parking extends ParentEntity {
 
 	@Column(name = "departure_date")
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date departureDate;
 
 	@Column(name = "departure_hour", length = 10)

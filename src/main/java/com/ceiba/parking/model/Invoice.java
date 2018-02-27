@@ -1,8 +1,12 @@
 package com.ceiba.parking.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -39,6 +43,11 @@ public class Invoice extends ParentEntity {
 	@NotNull
 	@Column(name = "total")
 	private Double total;
+
+	@NotNull
+	@Column(name = "creation_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date creationDate;
 
 	public String getPlaque() {
 		return plaque;
@@ -102,6 +111,14 @@ public class Invoice extends ParentEntity {
 
 	public void setTotal(Double total) {
 		this.total = total;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 }

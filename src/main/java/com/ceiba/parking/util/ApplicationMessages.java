@@ -13,6 +13,9 @@ public class ApplicationMessages {
 	public static final String THERE_IS_NOT_SPACE = "No hay cupos disponibles";
 	public static final String VEHICLE_ACCESS_RESTRICTED = "El vehiculo no puede ingresar";
 
+	// INVOICE MESSAGES
+	public static final String PLAQUE_NOT_EXISTS = "La placa ingresada no existe";
+
 	private ApplicationMessages() {
 	}
 }
