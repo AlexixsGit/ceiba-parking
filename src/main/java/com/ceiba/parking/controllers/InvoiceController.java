@@ -40,6 +40,7 @@ public class InvoiceController {
 				return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.PLAQUE_NOT_EXISTS);
 			}
 			invoice = this.invoiceService.complete(parking, invoice);
+			this.invoiceService.save(invoice);
 		} catch (Exception e) {
 			return new RestResponse(HttpStatus.CONFLICT.value(), ApplicationMessages.INTERNAL_ERROR);
 		}
