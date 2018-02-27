@@ -2,6 +2,7 @@ package com.ceiba.parking.unit.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -146,7 +147,7 @@ public class ParkingServiceTest {
 	}
 
 	@Test
-	public void plaqueLetterWithAOnSunday() {
+	public void plaqueLetterWithAOnSundayTest() {
 
 		// Arrange
 		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
@@ -172,7 +173,7 @@ public class ParkingServiceTest {
 	}
 
 	@Test
-	public void plaqueLetterWithAOnMonday() {
+	public void plaqueLetterWithAOnMondayTest() {
 
 		// Arrange
 		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
@@ -198,7 +199,7 @@ public class ParkingServiceTest {
 	}
 
 	@Test
-	public void plaqueLetterWithAOnTuesday() {
+	public void plaqueLetterWithAOnTuesdayTest() {
 
 		// Arrange
 		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
@@ -224,7 +225,7 @@ public class ParkingServiceTest {
 	}
 
 	@Test
-	public void validateWithoutVehicle() {
+	public void validateWithoutVehicleTest() {
 		// Arrange
 		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
 		parkingTestDataBuilder.withVehicleType(null);
@@ -238,7 +239,7 @@ public class ParkingServiceTest {
 	}
 
 	@Test
-	public void validateWithoutPlaque() {
+	public void validateWithoutPlaqueTest() {
 		// Arrange
 		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
 		parkingTestDataBuilder.withPlaque("");
@@ -252,7 +253,7 @@ public class ParkingServiceTest {
 	}
 
 	@Test
-	public void validateWithAllData() {
+	public void validateWithAllDataTest() {
 		// Arrange
 		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
 
@@ -265,7 +266,7 @@ public class ParkingServiceTest {
 	}
 
 	@Test
-	public void vehicleTypeNotExists() {
+	public void vehicleTypeNotExistsTest() {
 		// Arrange
 		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
 		parkingTestDataBuilder.withVehicleType(new VehicleType(10l, "Camion"));
@@ -280,7 +281,7 @@ public class ParkingServiceTest {
 	}
 
 	@Test
-	public void vehicleTypeExists() {
+	public void vehicleTypeExistsTest() {
 		// Arrange
 		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
 		VehicleTypeTestDataBuilder vehicleTypeTestDataBuilder = new VehicleTypeTestDataBuilder();
@@ -297,7 +298,7 @@ public class ParkingServiceTest {
 	}
 
 	@Test
-	public void completeInfo() {
+	public void completeInfoTest() {
 
 		// Arrange
 		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
@@ -309,6 +310,58 @@ public class ParkingServiceTest {
 
 		// Assert
 		assertEquals(parking, newParking);
+	}
+
+	@Test
+	public void verifyFindAllTest() {
+		// Arrange
+		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
+		Parking parking = parkingTestDataBuilder.build();
+
+		List<Parking> expectedParkingList = new ArrayList<>();
+		expectedParkingList.add(parking);
+
+		when(this.parkingRepository.findAll()).thenReturn(expectedParkingList);
+		// Act
+		List<Parking> newParkingList = this.parkingService.findAll();
+
+		// Assert
+		assertEquals(expectedParkingList, newParkingList);
+	}
+
+	@Test
+	public void verifyFindAllByPlaqueTest() {
+		// Arrange
+		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
+		Parking parking = parkingTestDataBuilder.build();
+
+		List<Parking> expectedParkingList = new ArrayList<>();
+		expectedParkingList.add(parking);
+
+		when(this.parkingRepository.findByPlaque(parking.getPlaque())).thenReturn(expectedParkingList);
+		// Act
+		List<Parking> newParkingList = this.parkingService.findByPlaque(parking.getPlaque());
+
+		// Assert
+		assertEquals(expectedParkingList, newParkingList);
+	}
+
+	@Test
+	public void verifyFindAllByWithoutPlaqueTest() {
+		// Arrange
+		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
+
+		Parking parking = parkingTestDataBuilder.build();
+
+		List<Parking> expectedParkingList = new ArrayList<>();
+		expectedParkingList.add(parking);
+
+		when(this.parkingRepository.findByPlaque(parking.getPlaque())).thenReturn(expectedParkingList);
+		// Act
+		List<Parking> newParkingList = this.parkingService.findByPlaque("ABC44444");
+
+		// Assert
+		assertNotEquals(expectedParkingList, newParkingList);
 	}
 
 }
