@@ -49,6 +49,23 @@ public class Invoice extends ParentEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 
+	public Invoice() {
+
+	}
+
+	public Invoice(String plaque, String descVehicleType, Integer engineCapacity, String employee, Double iva,
+			Double additionalCost, Double subtotal, Double total, Date creationDate) {
+		this.plaque = plaque;
+		this.descVehicleType = descVehicleType;
+		this.engineCapacity = engineCapacity;
+		this.employee = employee;
+		this.iva = iva;
+		this.additionalCost = additionalCost;
+		this.subtotal = subtotal;
+		this.total = total;
+		this.creationDate = creationDate;
+	}
+
 	public String getPlaque() {
 		return plaque;
 	}

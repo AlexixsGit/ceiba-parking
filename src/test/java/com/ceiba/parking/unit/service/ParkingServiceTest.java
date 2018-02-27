@@ -28,6 +28,7 @@ import com.ceiba.parking.repository.VehicleTypeRepository;
 import com.ceiba.parking.service.ParkingServiceImpl;
 import com.ceiba.parking.testdatabuilder.AdminTestDataBuilder;
 import com.ceiba.parking.testdatabuilder.ParkingTestDataBuilder;
+import com.ceiba.parking.testdatabuilder.VehicleTypeTestDataBuilder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ParkingServiceTest {
@@ -282,8 +283,9 @@ public class ParkingServiceTest {
 	public void vehicleTypeExists() {
 		// Arrange
 		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
+		VehicleTypeTestDataBuilder vehicleTypeTestDataBuilder = new VehicleTypeTestDataBuilder();
 
-		VehicleType VehicleType = new VehicleType(1l, "Moto");
+		VehicleType VehicleType = vehicleTypeTestDataBuilder.build();
 
 		Parking parking = parkingTestDataBuilder.build();
 		when(this.vehicleTypeRepository.findOne(parking.getVehicleType().getId())).thenReturn(VehicleType);

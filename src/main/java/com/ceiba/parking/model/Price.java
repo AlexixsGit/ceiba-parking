@@ -30,6 +30,17 @@ public class Price extends ParentEntity {
 	@Column(name = "high_engine_price")
 	private Double highEnginePrice;
 
+	public Price() {
+
+	}
+
+	public Price(VehicleType vehicleType, Double hourPrice, Double dayPrice, Double highEnginePrice) {
+		this.vehicleType = vehicleType;
+		this.hourPrice = hourPrice;
+		this.dayPrice = dayPrice;
+		this.highEnginePrice = highEnginePrice;
+	}
+
 	public VehicleType getVehicleType() {
 		return vehicleType;
 	}

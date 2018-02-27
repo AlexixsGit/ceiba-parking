@@ -57,23 +57,23 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public Invoice complete(Parking parking) {
-		Invoice invoice = new Invoice();
-		invoice.setIva(0d);
-		invoice.setCreationDate(new Date());
-		invoice.setPlaque(parking.getPlaque());
-		invoice.setEngineCapacity(parking.getEngineCapacity());
-		invoice.setDescVehicleType(
+	public Invoice complete(Parking parking, Invoice invoice) {
+		Invoice newInvoice = invoice;
+		newInvoice.setIva(0d);
+		newInvoice.setCreationDate(new Date());
+		newInvoice.setPlaque(parking.getPlaque());
+		newInvoice.setEngineCapacity(parking.getEngineCapacity());
+		newInvoice.setDescVehicleType(
 				this.vehicleTypeRepository.findOne(parking.getVehicleType().getId()).getDescription());
-		invoice.setEmployee(Constants.EMPLOYEE);
+		newInvoice.setEmployee(Constants.EMPLOYEE);
 
 		Double additionalCost = this.calculateAdditionalCost(parking);
-		invoice.setAdditionalCost(additionalCost);
+		newInvoice.setAdditionalCost(additionalCost);
 		Double subtotal = this.calculateSubtotal(parking);
-		invoice.setSubtotal(subtotal);
-		invoice.setTotal(subtotal + additionalCost + invoice.getIva());
+		newInvoice.setSubtotal(subtotal);
+		newInvoice.setTotal(subtotal + additionalCost + newInvoice.getIva());
 
-		return invoice;
+		return newInvoice;
 	}
 
 	@Override

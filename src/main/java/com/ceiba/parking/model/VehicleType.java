@@ -18,10 +18,13 @@ public class VehicleType extends ParentEntity {
 	@Column(name = "description", length = 50)
 	private String description;
 
-	public VehicleType(Long id, String description) {
-		super();
+	public VehicleType(String description) {
 		this.description = description;
-		super.setId(id);
+	}
+
+	public VehicleType(Long id, String description) {
+		this.description = description;
+		this.setId(id);
 	}
 
 	public VehicleType() {

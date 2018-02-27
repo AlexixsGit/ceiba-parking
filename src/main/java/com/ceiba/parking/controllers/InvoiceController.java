@@ -27,7 +27,7 @@ public class InvoiceController {
 	public RestResponse saveOrUpdate(@RequestBody String json) {
 
 		this.mapper = new ObjectMapper();
-		Invoice invoice = null;
+		Invoice invoice = new Invoice();
 
 		try {
 			Parking parking = this.mapper.readValue(json, Parking.class);
@@ -39,7 +39,7 @@ public class InvoiceController {
 			if (!this.invoiceService.validateIfPlaqueExists(parking.getPlaque())) {
 				return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.PLAQUE_NOT_EXISTS);
 			}
-			invoice = this.invoiceService.complete(parking);
+			invoice = this.invoiceService.complete(parking, invoice);
 		} catch (Exception e) {
 			return new RestResponse(HttpStatus.CONFLICT.value(), ApplicationMessages.INTERNAL_ERROR);
 		}

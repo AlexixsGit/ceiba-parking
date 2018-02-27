@@ -22,9 +22,10 @@ public interface InvoiceService {
 	 * Completa la informacion de la factura
 	 * 
 	 * @param parking
+	 * @param invoice
 	 * @return
 	 */
-	Invoice complete(Parking parking);
+	Invoice complete(Parking parking, Invoice invoice);
 
 	/**
 	 * Calcular costo adicional
