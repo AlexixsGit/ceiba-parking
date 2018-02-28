@@ -11,11 +11,6 @@ public class VehicleTypeTestDataBuilder {
 		this.description = Constants.MOTORCYCLE;
 	}
 
-	public VehicleTypeTestDataBuilder withDescription(String description) {
-		this.description = description;
-		return this;
-	}
-
 	public VehicleType build() {
 		return new VehicleType(this.description);
 	}

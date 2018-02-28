@@ -173,10 +173,11 @@ public class InvoiceServiceTest {
 		when(this.adminRepository.findByVehicleType(parking.getVehicleType().getId())).thenReturn(admin);
 		when(this.priceRepository.findByVehicleType(parking.getVehicleType())).thenReturn(price);
 		// Act
-		boolean zeroValue = this.invoiceService.calculateAdditionalCost(parking) == 0d;
+		Double value = this.invoiceService.calculateAdditionalCost(parking);
+		Double expectedValue = 0d;
 
 		// Assert
-		assertTrue(zeroValue);
+		assertEquals(expectedValue, value);
 
 	}
 
@@ -196,10 +197,10 @@ public class InvoiceServiceTest {
 		when(this.adminRepository.findByVehicleType(parking.getVehicleType().getId())).thenReturn(admin);
 		when(this.priceRepository.findByVehicleType(parking.getVehicleType())).thenReturn(price);
 		// Act
-		boolean totalValue = this.invoiceService.calculateAdditionalCost(parking) == price.getHighEnginePrice();
-
+		Double totalValue = this.invoiceService.calculateAdditionalCost(parking);
+		Double expectedValue = price.getHighEnginePrice();
 		// Assert
-		assertTrue(totalValue);
+		assertEquals(expectedValue, totalValue);
 
 	}
 
