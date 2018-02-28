@@ -86,11 +86,15 @@ public class ParkingServiceImpl implements ParkingService {
 		if (parking.isNew()) {
 			if (parking.getEntryDate() == null) {
 				parking.setEntryDate(new Date());
-				parking.setEntryHour(hours + ":" + minutes);
 			}
+			parking.setEntryHour(hours + ":" + minutes);
 		} else {
+			Date departureDate = parking.getDepartureDate();
 			parking = this.parkingRepository.findOne(parking.getId());
-			parking.setDepartureDate(new Date());
+
+			if (departureDate == null) {
+				parking.setDepartureDate(new Date());
+			}
 			parking.setDepartureHour(hours + ":" + minutes);
 		}
 		return parking;

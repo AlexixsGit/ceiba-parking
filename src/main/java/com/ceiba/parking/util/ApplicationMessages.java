@@ -11,7 +11,7 @@ public class ApplicationMessages {
 	public static final String VEHICLE_TYPE_NOT_EXISTS = "El tipo de vehiculo no existe";
 	public static final String PLAQUE_ALREADY_EXISTS = "La placa ya se encuentra registrada";
 	public static final String THERE_IS_NOT_SPACE = "No hay cupos disponibles";
-	public static final String VEHICLE_ACCESS_RESTRICTED = "El vehiculo no puede ingresar";
+	public static final String VEHICLE_ACCESS_RESTRICTED = "El vehiculo no puede ingresar el día de hoy";
 
 	// INVOICE MESSAGES
 	public static final String PLAQUE_NOT_EXISTS = "La placa ingresada no existe";
