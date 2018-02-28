@@ -15,6 +15,7 @@ public class ApplicationMessages {
 
 	// INVOICE MESSAGES
 	public static final String PLAQUE_NOT_EXISTS = "La placa ingresada no existe";
+	public static final String VEHICLE_NOT_PARKED = "El vehiculo no se encuentra en el parqueadero";
 
 	private ApplicationMessages() {
 	}

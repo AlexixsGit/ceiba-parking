@@ -70,6 +70,7 @@ public class InvoiceControllerTest {
 	@Sql({ "/delete-parking.sql", "/multiple-parking-inserts.sql" })
 	public void verifySaveSuccessfulForMotoHighEngineTest() throws Exception {
 		this.parking.setEngineCapacity(1000);
+		this.parking.setId(this.parkingRepository.findAll().get(0).getId());
 		String json = this.mapper.writeValueAsString(this.parking);
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/invoice/saveOrUpdate").contentType(MediaType.APPLICATION_JSON)
@@ -86,6 +87,8 @@ public class InvoiceControllerTest {
 	@Test
 	@Sql({ "/delete-parking.sql", "/multiple-parking-inserts.sql" })
 	public void verifySaveSuccessfulForMotoLowEngineTest() throws Exception {
+		this.parking.setId(this.parkingRepository.findAll().get(0).getId());
+
 		String json = this.mapper.writeValueAsString(this.parking);
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/invoice/saveOrUpdate").contentType(MediaType.APPLICATION_JSON)
@@ -97,6 +100,27 @@ public class InvoiceControllerTest {
 				.andExpect(jsonPath("$.entity.subtotal").isNotEmpty())
 				.andExpect(jsonPath("$.entity.total").isNotEmpty())
 				.andExpect(jsonPath("$.entity.creationDate").isNotEmpty()).andDo(print());
+	}
+
+	@Test
+	public void verifySaveWithoutParkingIdTest() throws Exception {
+		String json = this.mapper.writeValueAsString(this.parking);
+
+		mockMvc.perform(MockMvcRequestBuilders.post("/invoice/saveOrUpdate").contentType(MediaType.APPLICATION_JSON)
+				.content(json).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(jsonPath("$.responseCode").value(HttpStatus.NOT_ACCEPTABLE.value()))
+				.andExpect(jsonPath("$.message").value(ApplicationMessages.REQUIRED_FIELDS_ARE_EMPTY)).andDo(print());
+	}
+
+	@Test
+	public void verifySaveWithNotValidParkingIdTest() throws Exception {
+		this.parking.setId(0l);
+		String json = this.mapper.writeValueAsString(this.parking);
+
+		mockMvc.perform(MockMvcRequestBuilders.post("/invoice/saveOrUpdate").contentType(MediaType.APPLICATION_JSON)
+				.content(json).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(jsonPath("$.responseCode").value(HttpStatus.NOT_ACCEPTABLE.value()))
+				.andExpect(jsonPath("$.message").value(ApplicationMessages.VEHICLE_NOT_PARKED)).andDo(print());
 	}
 
 	@Test
@@ -125,6 +149,7 @@ public class InvoiceControllerTest {
 	@Sql("/multiple-parking-inserts.sql")
 	public void verifySaveWithNotExistingPlaqueTest() throws Exception {
 		this.parking.setPlaque("H9T6U7111");
+		this.parking.setId(this.parkingRepository.findAll().get(0).getId());
 		String json = this.mapper.writeValueAsString(this.parking);
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/invoice/saveOrUpdate").contentType(MediaType.APPLICATION_JSON)

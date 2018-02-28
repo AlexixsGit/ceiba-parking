@@ -92,6 +92,21 @@ public class InvoiceServiceTest {
 	}
 
 	@Test
+	public void verifySaveWithoutParkingIdTest() {
+		// Arrange
+		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
+
+		Parking parking = parkingTestDataBuilder.build();
+		parking.setId(null);
+
+		// Act
+		boolean isValid = this.invoiceService.validate(parking);
+
+		// Assert
+		assertFalse(isValid);
+	}
+
+	@Test
 	public void verifySaveCompleteDataTest() {
 		// Arrange
 		Calendar calendar = Calendar.getInstance();

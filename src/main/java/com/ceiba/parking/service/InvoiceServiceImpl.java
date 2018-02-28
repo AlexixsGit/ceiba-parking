@@ -46,6 +46,10 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public boolean validate(Parking parking) {
 		boolean isValid = true;
 
+		if (parking.getId() == null) {
+			isValid = false;
+		}
+
 		if (parking.getPlaque().isEmpty()) {
 			isValid = false;
 		}
@@ -161,5 +165,10 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Override
 	public boolean validateIfPlaqueExists(String plaque) {
 		return !this.parkingRepository.findByPlaqueWithDepartureDate(plaque).isEmpty();
+	}
+
+	@Override
+	public boolean validateIfParkingIdExists(Long parkingId) {
+		return this.parkingRepository.findOne(parkingId) != null;
 	}
 }

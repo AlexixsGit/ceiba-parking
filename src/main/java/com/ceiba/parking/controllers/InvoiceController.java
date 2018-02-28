@@ -36,6 +36,11 @@ public class InvoiceController {
 				return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(),
 						ApplicationMessages.REQUIRED_FIELDS_ARE_EMPTY);
 			}
+
+			if (!this.invoiceService.validateIfParkingIdExists(parking.getId())) {
+				return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(),
+						ApplicationMessages.VEHICLE_NOT_PARKED);
+			}
 			if (!this.invoiceService.validateIfPlaqueExists(parking.getPlaque())) {
 				return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.PLAQUE_NOT_EXISTS);
 			}

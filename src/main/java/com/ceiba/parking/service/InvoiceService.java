@@ -66,4 +66,12 @@ public interface InvoiceService {
 	 */
 	boolean validateIfPlaqueExists(String plaque);
 
+	/**
+	 * Valida que el id del parqueadero exista
+	 * 
+	 * @param parkingId
+	 * @return
+	 */
+	boolean validateIfParkingIdExists(Long parkingId);
+
 }
