@@ -7,19 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ceiba.parking.model.Admin;
-import com.ceiba.parking.service.AdminService;
+import com.ceiba.parking.repository.AdminRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class AdminController {
 
 	@Autowired
-	protected AdminService adminService;
+	protected AdminRepository adminRepository;
 
 	protected ObjectMapper mapper;
 
 	@RequestMapping(value = "/admin/findAll")
 	public List<Admin> findAll() {
-		return this.adminService.findAll();
+		return this.adminRepository.findAll();
 	}
 }

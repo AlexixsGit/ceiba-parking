@@ -40,18 +40,8 @@ public class ParkingTestDataBuilder {
 		return this;
 	}
 
-	public ParkingTestDataBuilder withEntryHour(String entryHour) {
-		this.entryHour = entryHour;
-		return this;
-	}
-
 	public ParkingTestDataBuilder withDepartureDate(Date departureDate) {
 		this.departureDate = departureDate;
-		return this;
-	}
-
-	public ParkingTestDataBuilder withDepartureHour(String departureHour) {
-		this.departureHour = departureHour;
 		return this;
 	}
 

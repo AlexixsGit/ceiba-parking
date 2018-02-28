@@ -35,66 +35,6 @@ public class InvoiceTestDataBuilder {
 		this.totalTime = 2l;
 	}
 
-	public InvoiceTestDataBuilder withPlaque(String plaque) {
-		this.plaque = plaque;
-		return this;
-	}
-
-	public InvoiceTestDataBuilder withDescVehicleType(String descVehicleType) {
-		this.descVehicleType = descVehicleType;
-		return this;
-	}
-
-	public InvoiceTestDataBuilder withEngineCapacity(Integer engineCapacity) {
-		this.engineCapacity = engineCapacity;
-		return this;
-	}
-
-	public InvoiceTestDataBuilder withEmployee(String employee) {
-		this.employee = employee;
-		return this;
-	}
-
-	public InvoiceTestDataBuilder withIva(Double iva) {
-		this.iva = iva;
-		return this;
-	}
-
-	public InvoiceTestDataBuilder withAdditionalCost(Double additionalCost) {
-		this.additionalCost = additionalCost;
-		return this;
-	}
-
-	public InvoiceTestDataBuilder withSubtotal(Double subtotal) {
-		this.subtotal = subtotal;
-		return this;
-	}
-
-	public InvoiceTestDataBuilder withTotal(Double total) {
-		this.total = total;
-		return this;
-	}
-
-	public InvoiceTestDataBuilder withCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-		return this;
-	}
-
-	public InvoiceTestDataBuilder withEntryDate(Date entryDate) {
-		this.entryDate = entryDate;
-		return this;
-	}
-
-	public InvoiceTestDataBuilder withDepartureDate(Date departureDate) {
-		this.departureDate = departureDate;
-		return this;
-	}
-
-	public InvoiceTestDataBuilder withTotalTime(Long totalTime) {
-		this.totalTime = totalTime;
-		return this;
-	}
-
 	public Invoice build() {
 		return new Invoice(this.plaque, this.descVehicleType, this.engineCapacity, this.employee, this.iva,
 				this.additionalCost, this.subtotal, this.total, this.creationDate, this.entryDate, this.departureDate,

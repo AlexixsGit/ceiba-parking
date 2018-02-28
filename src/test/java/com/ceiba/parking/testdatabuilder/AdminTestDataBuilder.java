@@ -19,28 +19,13 @@ public class AdminTestDataBuilder {
 		this.restrictPlaqueLetter = "A";
 	}
 
-	public AdminTestDataBuilder withHoursForADay(Integer hoursForADay) {
-		this.hoursForADay = hoursForADay;
-		return this;
-	}
-
 	public AdminTestDataBuilder withCapacity(Integer capacity) {
 		this.capacity = capacity;
 		return this;
 	}
 
-	public AdminTestDataBuilder withVehicleType(VehicleType vehicleType) {
-		this.vehicleType = vehicleType;
-		return this;
-	}
-
 	public AdminTestDataBuilder withEngineCapacity(Integer engineCapacity) {
 		this.engineCapacity = engineCapacity;
-		return this;
-	}
-
-	public AdminTestDataBuilder withRestrictPlaqueLetter(String restrictPlaqueLetter) {
-		this.restrictPlaqueLetter = restrictPlaqueLetter;
 		return this;
 	}
 
