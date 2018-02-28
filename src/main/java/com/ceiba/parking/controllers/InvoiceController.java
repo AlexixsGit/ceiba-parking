@@ -23,7 +23,7 @@ public class InvoiceController {
 	protected InvoiceService invoiceService;
 	protected ObjectMapper mapper;
 
-	@RequestMapping(value = "/invoice/saveOrUpdate", consumes = MediaType.APPLICATION_JSON, method = RequestMethod.POST)
+	@RequestMapping(value = "/invoice/saveOrUpdate", produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST)
 	public RestResponse saveOrUpdate(@RequestBody String json) {
 
 		this.mapper = new ObjectMapper();
@@ -38,8 +38,7 @@ public class InvoiceController {
 			}
 
 			if (!this.invoiceService.validateIfParkingIdExists(parking.getId())) {
-				return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(),
-						ApplicationMessages.VEHICLE_NOT_PARKED);
+				return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.VEHICLE_NOT_PARKED);
 			}
 			if (!this.invoiceService.validateIfPlaqueExists(parking.getPlaque())) {
 				return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.PLAQUE_NOT_EXISTS);
