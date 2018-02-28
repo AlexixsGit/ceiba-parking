@@ -66,6 +66,6 @@ public class ParkingController {
 
 	@RequestMapping(value = "/parking/getParkingListByPlaque", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public QueryResult<Parking> getParkingListByPlaque(@RequestParam("plaque") String plaque) {
-		return new QueryResult<>(this.parkingService.findAll());
+		return new QueryResult<>(this.parkingService.findByPlaque(plaque));
 	}
 }

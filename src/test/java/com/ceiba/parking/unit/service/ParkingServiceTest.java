@@ -2,7 +2,6 @@ package com.ceiba.parking.unit.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -350,18 +349,17 @@ public class ParkingServiceTest {
 	public void verifyFindAllByWithoutPlaqueTest() {
 		// Arrange
 		ParkingTestDataBuilder parkingTestDataBuilder = new ParkingTestDataBuilder();
-
+		parkingTestDataBuilder.withPlaque("");
 		Parking parking = parkingTestDataBuilder.build();
 
 		List<Parking> expectedParkingList = new ArrayList<>();
-		expectedParkingList.add(parking);
 
 		when(this.parkingRepository.findByPlaque(parking.getPlaque())).thenReturn(expectedParkingList);
 		// Act
-		List<Parking> newParkingList = this.parkingService.findByPlaque("ABC44444");
+		List<Parking> newParkingList = this.parkingService.findByPlaque(parking.getPlaque());
 
 		// Assert
-		assertNotEquals(expectedParkingList, newParkingList);
+		assertEquals(expectedParkingList, newParkingList);
 	}
 
 }

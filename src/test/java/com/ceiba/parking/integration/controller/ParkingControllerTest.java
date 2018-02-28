@@ -174,6 +174,50 @@ public class ParkingControllerTest {
 				.andExpect(jsonPath("$.message").value(ApplicationMessages.VEHICLE_ACCESS_RESTRICTED)).andDo(print());
 	}
 
+	@Test
+	@Sql({ "/delete-parking.sql", "/multiple-parking-inserts.sql" })
+	public void verifyFindAllTest() throws Exception {
+
+		String json = this.mapper.writeValueAsString(this.parking);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/parking/getParkingList").contentType(MediaType.APPLICATION_JSON)
+				.content(json).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(jsonPath("$.list").isNotEmpty()).andDo(print());
+	}
+
+	@Test
+	@Sql({ "/delete-parking.sql", "/multiple-parking-inserts.sql" })
+	public void verifyFindAllByPlaqueWithExistentPlaqueTest() throws Exception {
+		this.parking.setPlaque("H9T6U7");
+		String json = this.mapper.writeValueAsString(this.parking);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/parking/getParkingListByPlaque?plaque=" + this.parking.getPlaque())
+				.contentType(MediaType.APPLICATION_JSON).content(json).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(jsonPath("$.list").isNotEmpty()).andDo(print());
+	}
+
+	@Test
+	@Sql({ "/delete-parking.sql", "/multiple-parking-inserts.sql" })
+	public void verifyFindAllByPlaqueWithNotExistentPlaqueTest() throws Exception {
+		this.parking.setPlaque("H9T6U711111111");
+		String json = this.mapper.writeValueAsString(this.parking);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/parking/getParkingListByPlaque?plaque=" + this.parking.getPlaque())
+				.contentType(MediaType.APPLICATION_JSON).content(json).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(jsonPath("$.list").isEmpty()).andDo(print());
+	}
+
+	@Test
+	@Sql({ "/delete-parking.sql", "/multiple-parking-inserts.sql" })
+	public void verifyFindAllByPlaqueWithoutPlaqueTest() throws Exception {
+		this.parking.setPlaque("");
+		String json = this.mapper.writeValueAsString(this.parking);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/parking/getParkingListByPlaque?plaque=" + this.parking.getPlaque())
+				.contentType(MediaType.APPLICATION_JSON).content(json).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(jsonPath("$.list").isEmpty()).andDo(print());
+	}
+
 	@After
 	public void finish() {
 		this.parking = null;
