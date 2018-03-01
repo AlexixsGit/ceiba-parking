@@ -48,40 +48,15 @@ public class Admin extends ParentEntity {
 		return hoursForADay;
 	}
 
-	public void setHoursForADay(Integer hoursForADay) {
-		this.hoursForADay = hoursForADay;
-	}
-
 	public Integer getEngineCapacity() {
 		return engineCapacity;
-	}
-
-	public void setEngineCapacity(Integer engineCapacity) {
-		this.engineCapacity = engineCapacity;
 	}
 
 	public String getRestrictPlaqueLetter() {
 		return restrictPlaqueLetter;
 	}
 
-	public void setRestrictPlaqueLetter(String restrictPlaqueLetter) {
-		this.restrictPlaqueLetter = restrictPlaqueLetter;
-	}
-
 	public Integer getCapacity() {
 		return capacity;
 	}
-
-	public void setCapacity(Integer capacity) {
-		this.capacity = capacity;
-	}
-
-	public VehicleType getVehicleType() {
-		return vehicleType;
-	}
-
-	public void setVehicleType(VehicleType vehicleType) {
-		this.vehicleType = vehicleType;
-	}
-
 }

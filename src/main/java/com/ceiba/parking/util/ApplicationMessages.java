@@ -18,5 +18,6 @@ public class ApplicationMessages {
 	public static final String VEHICLE_NOT_PARKED = "El vehiculo no se encuentra en el parqueadero";
 
 	private ApplicationMessages() {
+		throw new IllegalStateException("Utility class");
 	}
 }

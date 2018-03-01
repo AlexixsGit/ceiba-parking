@@ -7,5 +7,6 @@ public class Constants {
 	public static final String EMPLOYEE = "Alexis Ortiz";
 
 	private Constants() {
+		throw new IllegalStateException("Utility class");
 	}
 }

@@ -41,36 +41,16 @@ public class Price extends ParentEntity {
 		this.highEnginePrice = highEnginePrice;
 	}
 
-	public VehicleType getVehicleType() {
-		return vehicleType;
-	}
-
-	public void setVehicleType(VehicleType vehicleType) {
-		this.vehicleType = vehicleType;
-	}
-
 	public Double getHourPrice() {
 		return hourPrice;
-	}
-
-	public void setHourPrice(Double hourPrice) {
-		this.hourPrice = hourPrice;
 	}
 
 	public Double getDayPrice() {
 		return dayPrice;
 	}
 
-	public void setDayPrice(Double dayPrice) {
-		this.dayPrice = dayPrice;
-	}
-
 	public Double getHighEnginePrice() {
 		return highEnginePrice;
-	}
-
-	public void setHighEnginePrice(Double highEnginePrice) {
-		this.highEnginePrice = highEnginePrice;
 	}
 
 }

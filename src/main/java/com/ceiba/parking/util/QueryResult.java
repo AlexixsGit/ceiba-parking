@@ -16,15 +16,7 @@ public class QueryResult<T> {
 		return totalRecords;
 	}
 
-	public void setTotalRecords(int totalRecords) {
-		this.totalRecords = totalRecords;
-	}
-
 	public List<T> getList() {
 		return list;
-	}
-
-	public void setList(List<T> list) {
-		this.list = list;
 	}
 }

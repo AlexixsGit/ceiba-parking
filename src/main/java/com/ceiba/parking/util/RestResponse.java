@@ -1,15 +1,10 @@
 package com.ceiba.parking.util;
 
-public class RestResponse{
+public class RestResponse {
 
 	private Object entity;
 	private Integer responseCode;
 	private String message;
-
-	public RestResponse(Integer responseCode) {
-		super();
-		this.responseCode = responseCode;
-	}
 
 	public RestResponse(Integer responseCode, String message) {
 		super();
@@ -29,23 +24,11 @@ public class RestResponse{
 		return responseCode;
 	}
 
-	public void setResponseCode(Integer responseCode) {
-		this.responseCode = responseCode;
-	}
-
 	public String getMessage() {
 		return message;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 	public Object getEntity() {
 		return entity;
-	}
-
-	public void setEntity(Object entity) {
-		this.entity = entity;
 	}
 }
