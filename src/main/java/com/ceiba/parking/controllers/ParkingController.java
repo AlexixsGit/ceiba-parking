@@ -50,11 +50,7 @@ public class ParkingController {
 		if (!this.parkingService.validateIfPlaqueIsPermitted(parking)) {
 			return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.VEHICLE_ACCESS_RESTRICTED);
 		}
-		try {
-			parking = this.parkingService.save(parking);
-		} catch (Exception e) {
-			return new RestResponse(HttpStatus.CONFLICT.value(), ApplicationMessages.INTERNAL_ERROR);
-		}
+		parking = this.parkingService.save(parking);
 
 		return new RestResponse(parking, HttpStatus.OK.value(), ApplicationMessages.SUCCESS_OPERATION);
 	}

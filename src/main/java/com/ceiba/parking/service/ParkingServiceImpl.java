@@ -66,7 +66,7 @@ public class ParkingServiceImpl implements ParkingService {
 	public boolean validate(Parking parking) {
 		boolean isValid = true;
 
-		if (parking.getVehicleType() == null || parking.getVehicleType().getId() == null) {
+		if (parking.getVehicleType() == null) {
 			isValid = false;
 		}
 

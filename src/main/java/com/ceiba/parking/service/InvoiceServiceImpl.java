@@ -54,7 +54,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 			isValid = false;
 		}
 
-		if (parking.getVehicleType() == null || parking.getVehicleType().getId() == null) {
+		if (parking.getVehicleType() == null) {
 			isValid = false;
 		}
 		return isValid;

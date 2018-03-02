@@ -1,5 +1,7 @@
 package com.ceiba.parking.controllers;
 
+import java.io.IOException;
+
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,30 +26,25 @@ public class InvoiceController {
 	protected ObjectMapper mapper;
 
 	@RequestMapping(value = "/invoice/saveOrUpdate", produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST)
-	public RestResponse saveOrUpdate(@RequestBody String json) {
+	public RestResponse saveOrUpdate(@RequestBody String json) throws IOException {
 
 		this.mapper = new ObjectMapper();
 		Invoice invoice = new Invoice();
 
-		try {
-			Parking parking = this.mapper.readValue(json, Parking.class);
+		Parking parking = this.mapper.readValue(json, Parking.class);
 
-			if (!this.invoiceService.validate(parking)) {
-				return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(),
-						ApplicationMessages.REQUIRED_FIELDS_ARE_EMPTY);
-			}
-
-			if (!this.invoiceService.validateIfParkingIdExists(parking.getId())) {
-				return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.VEHICLE_NOT_PARKED);
-			}
-			if (!this.invoiceService.validateIfPlaqueExists(parking.getPlaque())) {
-				return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.PLAQUE_NOT_EXISTS);
-			}
-			invoice = this.invoiceService.complete(parking, invoice);
-			this.invoiceService.save(invoice);
-		} catch (Exception e) {
-			return new RestResponse(HttpStatus.CONFLICT.value(), ApplicationMessages.INTERNAL_ERROR);
+		if (!this.invoiceService.validate(parking)) {
+			return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.REQUIRED_FIELDS_ARE_EMPTY);
 		}
+
+		if (!this.invoiceService.validateIfParkingIdExists(parking.getId())) {
+			return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.VEHICLE_NOT_PARKED);
+		}
+		if (!this.invoiceService.validateIfPlaqueExists(parking.getPlaque())) {
+			return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.PLAQUE_NOT_EXISTS);
+		}
+		invoice = this.invoiceService.complete(parking, invoice);
+		this.invoiceService.save(invoice);
 
 		return new RestResponse(invoice, HttpStatus.OK.value(), ApplicationMessages.SUCCESS_OPERATION);
 	}
