@@ -47,7 +47,7 @@ public class ParkingController {
 		}
 		parking = this.parkingService.complete(parking);
 
-		if (this.parkingService.validateIfPlaqueIsRestricted(parking)) {
+		if (!this.parkingService.validateIfPlaqueIsPermitted(parking)) {
 			return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(), ApplicationMessages.VEHICLE_ACCESS_RESTRICTED);
 		}
 		try {

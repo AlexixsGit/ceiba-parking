@@ -165,10 +165,10 @@ public class ParkingServiceTest {
 		// Act
 		when(adminRepository.findByVehicleType(parking.getVehicleType().getId())).thenReturn(admin);
 
-		boolean isRestricted = this.parkingService.validateIfPlaqueIsRestricted(parking);
+		boolean isPermitted = this.parkingService.validateIfPlaqueIsPermitted(parking);
 
 		// Assert
-		assertTrue(isRestricted);
+		assertTrue(isPermitted);
 	}
 
 	@Test
@@ -191,10 +191,10 @@ public class ParkingServiceTest {
 		// Act
 		when(adminRepository.findByVehicleType(parking.getVehicleType().getId())).thenReturn(admin);
 
-		boolean isRestricted = this.parkingService.validateIfPlaqueIsRestricted(parking);
+		boolean isPermitted = this.parkingService.validateIfPlaqueIsPermitted(parking);
 
 		// Assert
-		assertTrue(isRestricted);
+		assertTrue(isPermitted);
 	}
 
 	@Test
@@ -217,10 +217,10 @@ public class ParkingServiceTest {
 		// Act
 		when(adminRepository.findByVehicleType(parking.getVehicleType().getId())).thenReturn(admin);
 
-		boolean isRestricted = this.parkingService.validateIfPlaqueIsRestricted(parking);
+		boolean isPermitted = this.parkingService.validateIfPlaqueIsPermitted(parking);
 
 		// Assert
-		assertFalse(isRestricted);
+		assertFalse(isPermitted);
 	}
 
 	@Test

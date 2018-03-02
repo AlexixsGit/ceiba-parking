@@ -45,7 +45,7 @@ public class ParkingServiceImpl implements ParkingService {
 	}
 
 	@Override
-	public boolean validateIfPlaqueIsRestricted(Parking parking) {
+	public boolean validateIfPlaqueIsPermitted(Parking parking) {
 
 		if (parking.isNew()) {
 			Admin admin = this.adminRepository.findByVehicleType(parking.getVehicleType().getId());
@@ -54,11 +54,12 @@ public class ParkingServiceImpl implements ParkingService {
 			calendar.setTime(parking.getEntryDate());
 			int day = calendar.get(Calendar.DAY_OF_WEEK);
 
-			return parking.getPlaque().substring(0, 1).toUpperCase()
-					.contains(admin.getRestrictPlaqueLetter().toUpperCase())
-					&& (day == Calendar.SUNDAY || day == Calendar.MONDAY);
+			if (parking.getPlaque().substring(0, 1).toUpperCase()
+					.contains(admin.getRestrictPlaqueLetter().toUpperCase())) {
+				return (day == Calendar.SUNDAY || day == Calendar.MONDAY);
+			}
 		}
-		return false;
+		return true;
 	}
 
 	@Override

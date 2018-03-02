@@ -254,8 +254,8 @@ public class InvoiceServiceTest {
 		List<Long> times = new ArrayList<>();
 		times.add(1l);
 		times.add(1l);
-		times.add(1l);
-		times.add(10l);
+		times.add(0l);
+		times.add(0l);
 
 		when(this.adminRepository.findByVehicleType(parking.getVehicleType().getId())).thenReturn(admin);
 		// Act
@@ -294,7 +294,7 @@ public class InvoiceServiceTest {
 		when(this.adminRepository.findByVehicleType(parking.getVehicleType().getId())).thenReturn(admin);
 		// Act
 		Double subtotal = this.invoiceService.calculateSubtotal(parking);
-		Double expectedValue = 9000d;
+		Double expectedValue = 8000d;
 
 		// Assert
 		assertEquals(expectedValue, subtotal);

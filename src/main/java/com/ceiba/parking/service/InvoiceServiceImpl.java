@@ -122,15 +122,15 @@ public class InvoiceServiceImpl implements InvoiceService {
 		long remainHours = Math.abs(((totalDays * 24) * 60) - (totalHours * 60)) / 60;
 
 		// Calcula los minutos que le restan a las fechas
-		long remainMinutes = Math.abs(totalMinutes - (totalHours * 60));
+		long remainMinutes = remainHours >= admin.getHoursForADay() && remainHours <= 24 ? 0
+				: Math.abs(totalMinutes - (totalHours * 60));
 
 		// Calcula los dias que le restan a las fechas
-		long remainDays = admin.getHoursForADay() > 0 && admin.getHoursForADay() <= 24
-				? remainHours / admin.getHoursForADay()
-				: 0;
+		long remainDays = remainHours >= admin.getHoursForADay() ? 1 : 0;
 
 		// Calcula las horas que faltan
-		remainHours = remainHours - (remainDays * admin.getHoursForADay());
+		remainHours = remainHours >= admin.getHoursForADay() && remainHours <= 24 ? 0
+				: remainHours - (remainDays * admin.getHoursForADay());
 
 		List<Long> times = new ArrayList<>();
 		times.add(totalDays);

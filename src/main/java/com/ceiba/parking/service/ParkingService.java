@@ -26,12 +26,13 @@ public interface ParkingService {
 	boolean validateCapacity(Parking parking);
 
 	/**
-	 * Valida que no pueda ingresar vehiculos con placas de la letra configurada
+	 * Valida que pueda ingresar vehiculos con placas de la letra configurada los
+	 * dias permitidos
 	 * 
 	 * @param parking
-	 * @return true si no puede ingresar
+	 * @return true si puede ingresar
 	 */
-	boolean validateIfPlaqueIsRestricted(Parking parking);
+	boolean validateIfPlaqueIsPermitted(Parking parking);
 
 	/**
 	 * Valida campos obligatorios

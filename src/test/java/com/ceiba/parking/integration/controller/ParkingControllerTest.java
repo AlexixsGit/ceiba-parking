@@ -161,7 +161,7 @@ public class ParkingControllerTest {
 	public void verifySaveWithPlaqueRestrictedTest() throws Exception {
 
 		Calendar cal = Calendar.getInstance();
-		cal.set(2018, Calendar.MARCH, 4); // Year, month and day of month
+		cal.set(2018, Calendar.MARCH, 7); // Year, month and day of month
 		Date date = cal.getTime();
 		this.parking.setPlaque("ABC123");
 		this.parking.setEntryDate(date);
