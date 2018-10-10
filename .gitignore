@@ -20,11 +20,8 @@
 nbproject/private/
 build/
 nbbuild/
-gradle/
 dist/
 bin/
 nbdist/
 .nb-gradle/
-gradlew
-gradlew.bat
 jacoco/
